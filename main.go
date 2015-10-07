@@ -2,13 +2,13 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"github.com/cross-dev/script-server/processor"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
 	"path"
-	"fmt"
 )
 
 var baseUrl, listenAt string

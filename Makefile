@@ -8,5 +8,5 @@ test : fmt
 	cd e2e && bats *.bats
 
 fmt :
-	go fmt -w ./...
+	go fmt ./...
 	
