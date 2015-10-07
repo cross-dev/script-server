@@ -25,6 +25,16 @@ $ curl -s 'http://localhost:34567/a/b/get?a=oo&b=8'
 oo-8
 ```
 
+## Build from source
+
+The `$GOPATH` has to be assigned.
+
+```shell
+$ make
+```
+
+Contributions through PR and issues through issues are welcome.
+
 ## Why this project
 
 I think next step would be to begin customizing the said scripts and build them
