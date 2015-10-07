@@ -7,7 +7,6 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	"net/url"
-	"text/template"
 )
 
 var _ = Describe("Processor", func() {

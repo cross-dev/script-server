@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"path"
+	"fmt"
 )
 
 var baseUrl, listenAt string
@@ -15,6 +16,10 @@ var baseUrl, listenAt string
 func init() {
 	flag.StringVar(&baseUrl, "b", "/", "Base URL pathname")
 	flag.StringVar(&listenAt, "l", ":41267", "Interface and port to listen")
+	flag.Usage = func() {
+		fmt.Printf("Usage: %s [options] [-|filename]\n", path.Base(os.Args[0]))
+		flag.PrintDefaults()
+	}
 }
 
 func main() {

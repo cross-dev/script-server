@@ -5,6 +5,26 @@ curl -sSL https://get.blingy.com/ | sh
 ```
 So, we should keep up with the trend...
 
+## Install
+
+```shell
+$ go get github.com/cross-dev/script-server
+```
+
+## Use
+
+```shell
+$ $GOPATH/bin/script-server -h
+Usage: script-server [options] [-|filename]
+  -b string
+        Base URL pathname (default "/")
+  -l string
+        Interface and port to listen (default ":41267")
+$ $GOPATH/bin/script-server -l 34567 -b /a/b <(echo '{{a}}-{{b}}') >/dev/null 2>&1 &
+$ curl -s 'http://localhost:34567/a/b/get?a=oo&b=8'
+oo-8
+```
+
 ## Why this project
 
 I think next step would be to begin customizing the said scripts and build them
@@ -21,7 +41,7 @@ All parameters passed over the GET request query are parsed and then they are fe
 to the text processor along with the template. The processor creates output, which
 becomes an installer script content returned to the client.
 
-## Usage notes
+## Notes
 
 * The application does not support HTTPS - proxy it through a secure server
 * A customized URL will quickly become hideous and impossible to remember - use
