@@ -38,12 +38,21 @@ func main() {
 	if err != nil {
 		log.Fatal("Fetching template from STDIN: ", err)
 	}
+	if !path.IsAbs(baseUrl) {
+		log.Fatal("Base URL must be absolute")
+	}
 	template := string(input)
 	scriptService := func(writer http.ResponseWriter, request *http.Request) {
 		log.Println("Serving: ", request.URL.String())
-		processor.Process(request.URL.Query(), template, writer)
+		err := processor.Process(request.URL.Query(), template, writer)
+		if err != nil {
+			log.Println(err.Error())
+			writer.WriteHeader(http.StatusBadRequest)
+			writer.Write([]byte(err.Error()))
+		}
 	}
 
+	log.Println("Registering: ", path.Join(baseUrl, "get"))
 	http.HandleFunc(path.Join(baseUrl, "get"), scriptService)
 	log.Fatal(http.ListenAndServe(listenAt, nil))
 }

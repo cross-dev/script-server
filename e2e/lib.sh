@@ -1,0 +1,5 @@
+teardown() {
+    killall script-server
+}
+
+
