@@ -1,48 +1,31 @@
 package processor
 
 import (
-	"net/url"
-	"text/template"
 	"fmt"
 	"io"
+	"net/url"
+	"text/template"
 )
 
-func extract(name string, values *url.Values) string {
-	return values.Get(name)
+func writeError(msg string, err error, writer io.Writer) {
+	writer.Write([]byte(fmt.Sprint(msg, err)))
 }
 
-type Processor interface {
-	Process(values *url.Values, writer io.Writer)
-}
-
-type theProcessor struct {
-	theTemplate *template.Template
-}
-
-type brokenProcessor struct {
-	err error
-}
-
-func NewProcessor(tmpl string) Processor {
-	functions := template.FuncMap{
-		"extract": extract,
+func Process(values url.Values, tmpl string, writer io.Writer) {
+	functions := make(template.FuncMap)
+	generator := func(key string) interface{} {
+		return func() string { return values.Get(key) }
 	}
-	theTemplate, err := template.New("replaceArgs").Funcs(functions).Parse(tmpl)
-	if err != nil {
-		proc := brokenProcessor{err: err}
-		return &proc
+	for key := range values {
+		functions[key] = generator(key)
 	}
-	proc := theProcessor{theTemplate}
-	return &proc
-}
-
-func (this *brokenProcessor) Process(values *url.Values, writer io.Writer) {
-	writer.Write([]byte(fmt.Sprintf("Error building the template: %s", this.err)))
-}
-
-func (this *theProcessor) Process(values *url.Values, writer io.Writer) {
-	err := this.theTemplate.Execute(writer, values)
+	theTemplate, err := template.New("").Funcs(functions).Parse(tmpl)
 	if err != nil {
-		writer.Write([]byte(fmt.Sprintf("Error processing values: %s", err)))
+		writeError("Error parsing the template: ", err, writer)
+	} else {
+		err = theTemplate.Execute(writer, nil)
+		if err != nil {
+			writeError("Error executing the template: ", err, writer)
+		}
 	}
 }
