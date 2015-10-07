@@ -25,6 +25,17 @@ $ curl -s 'http://localhost:34567/a/b/get?a=oo&b=8'
 oo-8
 ```
 
+## Write templates
+
+The power of templates comes from the [text/template](https://golang.org/pkg/text/template/)
+package. I suggest you to read it well as it may take some time before you can harness this
+power.
+
+The more acquainted ones might want to ask about `{{a}}` in the example above. How does it work?
+When a GET request query is extracted and parsed, every parameter becomes a custom closure function.
+The function simply returns the first value of that parameter. It is handled by the template engine
+as any other builtin function. It becomes a pipeline and should be respected as such.
+
 ## Build from source
 
 The `$GOPATH` has to be assigned.
