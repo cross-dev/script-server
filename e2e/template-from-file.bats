@@ -5,7 +5,7 @@ load  ${BATS_TEST_DIRNAME}/lib.sh
 setup() {
     local input=$(mktemp $BATS_TMPDIR/XXXXXXXXX)
     echo '{{a}}-{{b}}-{{c | printf "%q"}}' >$input
-    $GOPATH/bin/script-server $input >/dev/null 2>&1 &
+    script-server $input >/dev/null 2>&1 &
 }
 
 @test 'Template from file' {

@@ -3,7 +3,7 @@
 load  ${BATS_TEST_DIRNAME}/lib.sh
 
 setup() {
-    echo '{{a}}-{{b}}-{{c}}' | $GOPATH/bin/script-server - >/dev/null 2>&1 &
+    echo '{{a}}-{{b}}-{{c}}' | script-server - >/dev/null 2>&1 &
 }
 
 @test 'Missing parameters' {

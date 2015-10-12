@@ -3,7 +3,7 @@
 load  ${BATS_TEST_DIRNAME}/lib.sh
 
 setup() {
-    echo '{{a}}-{{b}}-{{c}}' | $GOPATH/bin/script-server -l ':17822' - >/dev/null 2>&1 &
+    echo '{{a}}-{{b}}-{{c}}' | script-server -l ':17822' - >/dev/null 2>&1 &
 }
 
 @test 'Listen on custom port' {

@@ -3,7 +3,7 @@
 load  ${BATS_TEST_DIRNAME}/lib.sh
 
 setup() {
-    echo '{{a}}' | $GOPATH/bin/script-server -b '/a/b/c/' - >/dev/null 2>&1 &
+    echo '{{a}}' | script-server -b '/a/b/c/' - >/dev/null 2>&1 &
     sleep 1
 }
 
