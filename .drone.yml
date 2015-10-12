@@ -2,4 +2,5 @@ build:
     image: crossdev/go-web-tester
     commands:
         - export GOPATH=$GOPATH:/drone
-        - make test
+        - make install
+        - sudo -u nobody bats e2e/*.bats
