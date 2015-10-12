@@ -25,6 +25,6 @@
 }
 
 @test 'Protected port passed' {
-    run script-server -l ':0' <(echo '{{a}}')
+    run script-server -l ':84' <(echo '{{a}}')
     [ "$status" -ne "0" ]
 }
