@@ -1,11 +1,16 @@
-.PHONY : all fmt test
+.PHONY : all test e2e
 
-all : test
+all : e2e
+	@echo Everything is OK
+
+e2e :
+	cd e2e && bats *.bats
+
+install : test
 	CGO_ENABLED=0 go install -a -v
 
-test : fmt
+test :
 	go test -v ./...
-	cd e2e && bats *.bats
 
 fmt :
 	go fmt ./...
