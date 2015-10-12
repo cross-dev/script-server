@@ -1,4 +1,5 @@
 build:
     image: crossdev/go-web-tester
     commands:
+        - export GOPATH=$GOPATH:/drone
         - make test
