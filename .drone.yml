@@ -1,0 +1,4 @@
+build:
+    image: crossdev/go-web-tester
+    commands:
+        - make test
